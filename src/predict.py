@@ -1,3 +1,4 @@
+# Predict customer churn using a trained model
 import pandas as pd
 import joblib
 

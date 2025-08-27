@@ -1,6 +1,6 @@
 # 🚀 Customer Churn Prediction
 
-A powerful machine learning project built with Python and XGBoost, designed to predict whether a customer is likely to churn. This project allows users to input customer data and quickly get predictions, making it a great showcase for AI/ML internship portfolios.
+A powerful machine learning project built with Python and XGBoost, designed to predict whether a customer is likely to churn. This project allows users to input customer data and quickly get predictions, making it a project having deep real-world impact.
 
 ---
 

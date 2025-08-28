@@ -1,21 +1,21 @@
 # 🚀 Customer Churn Prediction
 
-A powerful machine learning project built with Python and XGBoost, designed to predict whether a customer is likely to churn. This project allows users to input customer data and quickly get predictions, making it a great showcase for AI/ML internship portfolios.
+A machine learning project built with Python and XGBoost, designed to predict whether a customer is likely to churn. This project allows users to input customer data and quickly get predictions, making it a great showcase for AI/ML internship portfolios.
 
 ---
 
-## ✨ Key Features
+## Key Features
 
-🧮 **Accurate Churn Prediction:** Uses a trained XGBoost model to classify customers as churn or no churn.
-📊 **Handles Categorical and Numeric Data:** Supports both one-hot encoded categorical features and numeric values.
-💻 **Interactive Input:** Recruiters or users can enter customer details directly in the terminal for predictions.
-📁 **CSV Input Support:** Predict churn for multiple customers at once using CSV files.
-🧾 **Preprocessing & Feature Management:** Ensures new data matches the model’s training features, avoiding errors.
-✅ **Ready-to-Use:** Includes trained model and all necessary feature columns for easy testing.
+* **Accurate Churn Prediction:** Uses a trained XGBoost model to classify customers as churn or no churn.
+* **Handles Categorical and Numeric Data:** Supports both one-hot encoded categorical features and numeric values.
+* **Interactive Input:** Recruiters or users can enter customer details directly in the terminal for predictions.
+* **CSV Input Support:** Predict churn for multiple customers at once using CSV files.
+* **Preprocessing & Feature Management:** Ensures new data matches the model’s training features, avoiding errors.
+* **Ready-to-Use:** Includes trained model and all necessary feature columns for easy testing.
 
 ---
 
-## 💻 Tech Stack
+## Tech Stack
 
 * **Backend / ML:** Python, Pandas, XGBoost, Joblib
 * **Data Handling:** CSV, DataFrames
@@ -23,7 +23,41 @@ A powerful machine learning project built with Python and XGBoost, designed to p
 
 ---
 
-## ⚙️ Getting Started
+## Project Structure
+
+```
+CUSTOMER-CHURN-PREDICTION
+│── data/
+│   ├── cleaned_data.csv
+│   ├── Telco-Customer-Churn.csv
+│   └── .ipynb_checkpoints/
+│
+│── notebooks/
+│   ├── data_exploration.ipynb
+│   ├── modeling.ipynb
+│   ├── preprocessing.ipynb
+│   └── .ipynb_checkpoints/
+│
+│── results/
+│
+│── src/
+│   ├── __init__.py
+│   ├── evaluate_model.ipynb
+│   ├── predict.py
+│   ├── predictions.csv
+│   └── .ipynb_checkpoints/
+│
+│── venv/ (virtual environment)
+│
+│── .gitignore
+│── pyvenv.cfg
+│── README.md
+│── requirements.txt
+```
+
+---
+
+## Getting Started
 
 Follow these steps to set up and run the Customer Churn Prediction project locally.
 
@@ -34,12 +68,12 @@ Follow these steps to set up and run the Customer Churn Prediction project local
 
 ---
 
-### 🔧 Installation
+### Installation
 
 Clone the repository:
 
 ```bash
-git clone https://github.com/AaryanR1508/customer-churn-prediction.git
+git clone https://github.com/AnoopGanesh28/customer-churn-prediction.git
 cd customer-churn-prediction
 ```
 
@@ -63,9 +97,9 @@ pip install -r requirements.txt
 
 ---
 
-### 🚀 Running the Application
+## Running the Application
 
-#### **Option 1: Interactive Input**
+### Option 1: Interactive Input
 
 Run the prediction script and input customer details:
 
@@ -73,7 +107,7 @@ Run the prediction script and input customer details:
 python src/predict.py
 ```
 
-Follow the prompts to enter numeric and categorical values. The program will output:
+Follow the prompts to enter numeric and categorical values. The program will output either:
 
 ```
 Prediction: Churn
@@ -85,7 +119,7 @@ or
 Prediction: No Churn
 ```
 
-#### **Option 2: CSV Input**
+### Option 2: CSV Input
 
 Prepare a CSV file with customer data in the `data/` folder and run:
 
@@ -97,13 +131,13 @@ The script will output predictions for all rows in the CSV.
 
 ---
 
-### 🔐 Environment Variables
+## Environment Variables
 
 You can configure paths to model or CSV files by editing `config.py` or `.env` (optional for advanced use).
 
 ---
 
-### 🛤️ Roadmap (Optional Ideas)
+## Roadmap (Future Enhancements)
 
 * Web app interface with Flask/FastAPI
 * Visual dashboard showing churn probabilities
@@ -112,9 +146,10 @@ You can configure paths to model or CSV files by editing `config.py` or `.env` (
 
 ---
 
-### 🧑‍💻 Author
+## Author
 
-Made with 💻 and ☕ by Anoop G.
+Made with Python and perseverance by **Anoop Ganesh**.
 
 ---
+
 

@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data (keep the Telco CSV you added; ignore other big files)
+data/*
+!data/Telco-Customer-Churn.csv
+
+# OS/IDE
+.DS_Store
+.vscode/
+

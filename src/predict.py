@@ -1,29 +1,39 @@
 # Predict customer churn using a trained model
+import argparse
+from pathlib import Path
 import pandas as pd
 import joblib
 
+BASE_DIR = Path(__file__).resolve().parents[1]
+MODEL_PATH = BASE_DIR / "results" / "model.pkl"
+FEATURE_COLUMNS_PATH = BASE_DIR / "results" / "feature_columns.pkl"
+
 # Load trained model and feature columns
-model = joblib.load("../results/model.pkl")
-columns = [
-    'gender', 'SeniorCitizen', 'Partner', 'Dependents', 'tenure', 'PhoneService',
-    'PaperlessBilling', 'MonthlyCharges', 'TotalCharges',
-    'MultipleLines_No phone service', 'MultipleLines_Yes',
-    'InternetService_Fiber optic', 'InternetService_No',
-    'OnlineSecurity_No internet service', 'OnlineSecurity_Yes',
-    'OnlineBackup_No internet service', 'OnlineBackup_Yes',
-    'DeviceProtection_No internet service', 'DeviceProtection_Yes',
-    'TechSupport_No internet service', 'TechSupport_Yes',
-    'StreamingTV_No internet service', 'StreamingTV_Yes',
-    'StreamingMovies_No internet service', 'StreamingMovies_Yes',
-    'Contract_One year', 'Contract_Two year',
-    'PaymentMethod_Credit card (automatic)', 'PaymentMethod_Electronic check', 'PaymentMethod_Mailed check'
-]
+model = joblib.load(MODEL_PATH)
+try:
+    columns = joblib.load(FEATURE_COLUMNS_PATH)
+except Exception:
+    # Fallback to previous hardcoded list if feature columns artifact is missing
+    columns = [
+        'gender', 'SeniorCitizen', 'Partner', 'Dependents', 'tenure', 'PhoneService',
+        'PaperlessBilling', 'MonthlyCharges', 'TotalCharges',
+        'MultipleLines_No phone service', 'MultipleLines_Yes',
+        'InternetService_Fiber optic', 'InternetService_No',
+        'OnlineSecurity_No internet service', 'OnlineSecurity_Yes',
+        'OnlineBackup_No internet service', 'OnlineBackup_Yes',
+        'DeviceProtection_No internet service', 'DeviceProtection_Yes',
+        'TechSupport_No internet service', 'TechSupport_Yes',
+        'StreamingTV_No internet service', 'StreamingTV_Yes',
+        'StreamingMovies_No internet service', 'StreamingMovies_Yes',
+        'Contract_One year', 'Contract_Two year',
+        'PaymentMethod_Credit card (automatic)', 'PaymentMethod_Electronic check', 'PaymentMethod_Mailed check'
+    ]
 
 # Mapping for categorical one-hot columns
 CATEGORICAL_MAPS = {
     'MultipleLines': {
         "Yes": "MultipleLines_Yes",
-        "No": "MultipleLines_No phone service",
+        # Baseline category: "No" -> no column set
         "No phone service": "MultipleLines_No phone service"
     },
     'InternetService': {
@@ -32,32 +42,26 @@ CATEGORICAL_MAPS = {
     },
     'OnlineSecurity': {
         "Yes": "OnlineSecurity_Yes",
-        "No": "OnlineSecurity_No internet service",
         "No internet service": "OnlineSecurity_No internet service"
     },
     'OnlineBackup': {
         "Yes": "OnlineBackup_Yes",
-        "No": "OnlineBackup_No internet service",
         "No internet service": "OnlineBackup_No internet service"
     },
     'DeviceProtection': {
         "Yes": "DeviceProtection_Yes",
-        "No": "DeviceProtection_No internet service",
         "No internet service": "DeviceProtection_No internet service"
     },
     'TechSupport': {
         "Yes": "TechSupport_Yes",
-        "No": "TechSupport_No internet service",
         "No internet service": "TechSupport_No internet service"
     },
     'StreamingTV': {
         "Yes": "StreamingTV_Yes",
-        "No": "StreamingTV_No internet service",
         "No internet service": "StreamingTV_No internet service"
     },
     'StreamingMovies': {
         "Yes": "StreamingMovies_Yes",
-        "No": "StreamingMovies_No internet service",
         "No internet service": "StreamingMovies_No internet service"
     },
     'Contract': {
@@ -88,7 +92,12 @@ def prepare_customer(row):
         val = row.get(cat_col)
         if val is None:
             continue
-        mapped_col = mapping.get(val)
+        # Normalize common text variants
+        if isinstance(val, str):
+            normalized = val.strip()
+        else:
+            normalized = val
+        mapped_col = mapping.get(normalized)
         if mapped_col:
             df[mapped_col] = 1
     return df
@@ -127,15 +136,18 @@ def predict_csv(file_path):
     df_input['Prediction'] = model.predict(df_final)
     df_input['Prediction'] = df_input['Prediction'].map({1: 'Churn', 0: 'No Churn'})
     print(df_input)
-    df_input.to_csv("predictions.csv", index=False)
+    output_path = Path(file_path).with_name("predictions.csv")
+    df_input.to_csv(output_path, index=False)
     print("Predictions saved to predictions.csv")
 
 if __name__ == "__main__":
-    mode = input("Select mode (interactive/csv): ").strip().lower()
-    if mode == "interactive":
+    parser = argparse.ArgumentParser(description="Customer churn prediction")
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("--interactive", action="store_true", help="Run in interactive mode")
+    group.add_argument("--csv", type=str, help="Path to CSV file for batch predictions")
+    args = parser.parse_args()
+
+    if args.interactive:
         predict_interactive()
-    elif mode == "csv":
-        path = input("Enter CSV file path: ")
-        predict_csv(path)
     else:
-        print("Invalid mode. Choose 'interactive' or 'csv'.")
+        predict_csv(args.csv)

@@ -1,29 +1,29 @@
-# 🚀 Customer Churn Prediction
+# Customer Churn Prediction
 
-A powerful machine learning project built with Python and XGBoost, designed to predict whether a customer is likely to churn. This project allows users to input customer data and quickly get predictions, making it a great showcase for AI/ML internship portfolios.
-
----
-
-## ✨ Key Features
-
-🧮 **Accurate Churn Prediction:** Uses a trained XGBoost model to classify customers as churn or no churn.
-📊 **Handles Categorical and Numeric Data:** Supports both one-hot encoded categorical features and numeric values.
-💻 **Interactive Input:** Recruiters or users can enter customer details directly in the terminal for predictions.
-📁 **CSV Input Support:** Predict churn for multiple customers at once using CSV files.
-🧾 **Preprocessing & Feature Management:** Ensures new data matches the model’s training features, avoiding errors.
-✅ **Ready-to-Use:** Includes trained model and all necessary feature columns for easy testing.
+A machine learning project built with Python and XGBoost to predict whether a customer is likely to churn. Users can input customer data and quickly get predictions.
 
 ---
 
-## 💻 Tech Stack
+## Key Features
 
-* **Backend / ML:** Python, Pandas, XGBoost, Joblib
-* **Data Handling:** CSV, DataFrames
-* **Environment Management:** Virtual environment (venv)
+- **Accurate churn prediction:** Uses a trained XGBoost model to classify customers as churn or no churn.
+- **Handles categorical and numeric data:** Supports both one-hot encoded categorical features and numeric values.
+- **Interactive input:** Enter customer details in the terminal for predictions.
+- **CSV input support:** Predict churn for multiple customers at once using CSV files.
+- **Preprocessing and feature management:** Ensures new data matches the model’s training features.
+- **Ready to use:** Includes trained model and required feature columns for testing.
 
 ---
 
-## ⚙️ Getting Started
+## Tech Stack
+
+- **Backend / ML:** Python, Pandas, XGBoost, Joblib
+- **Data Handling:** CSV, DataFrames
+- **Environment:** Virtual environment (venv)
+
+---
+
+## Getting Started
 
 Follow these steps to set up and run the Customer Churn Prediction project locally.
 
@@ -34,7 +34,7 @@ Follow these steps to set up and run the Customer Churn Prediction project local
 
 ---
 
-### 🔧 Installation
+### Installation
 
 Clone the repository:
 
@@ -63,47 +63,68 @@ pip install -r requirements.txt
 
 ---
 
-### 🚀 Running the Application
+### Running the Application
 
-#### **Option 1: Interactive Input**
+There are two modes: interactive (single row) and batch CSV (multiple rows).
 
-Run the prediction script and input customer details:
+#### Option 1: Interactive input (single prediction)
 
 ```bash
-python src/predict.py
+python src/predict.py --interactive
 ```
 
-Follow the prompts to enter numeric and categorical values. The program will output:
+Follow the prompts to enter values; you will see either:
+`Prediction: Churn` or `Prediction: No Churn`.
 
-```
-Prediction: Churn
-```
-
-or
-
-```
-Prediction: No Churn
-```
-
-#### **Option 2: CSV Input**
-
-Prepare a CSV file with customer data in the `data/` folder and run:
+#### Option 2: CSV input (batch predictions)
 
 ```bash
 python src/predict.py --csv data/sample_customers.csv
 ```
 
-The script will output predictions for all rows in the CSV.
+- Input schema: see the provided sample at `data/sample_customers.csv`.
+- Output file: predictions are saved next to the input as `predictions.csv` and also printed to the console.
 
 ---
 
-### 🔐 Environment Variables
+### Sample data
 
-You can configure paths to model or CSV files by editing `config.py` or `.env` (optional for advanced use).
+A ready-to-run sample is included at:
+
+```
+data/sample_customers.csv
+```
+
+Use it with:
+
+```bash
+python src/predict.py --csv data/sample_customers.csv
+```
+
+This will produce `data/predictions.csv` with a `Prediction` column.
+
+### Quick sanity test
+
+To verify the model and features load correctly and produce a prediction:
+
+```bash
+python src/quick_test.py
+```
+
+This prints a small JSON-like line containing the predicted class.
+
+### Environment and paths
+
+Artifacts are expected at:
+
+- `results/model.pkl`
+- `results/feature_columns.pkl`
+
+These are loaded automatically by `src/predict.py`. Do not move them unless you update the script.
 
 ---
 
-### 🛤️ Roadmap (Optional Ideas)
+### Roadmap (optional)
 
 * Web app interface with Flask/FastAPI
 * Visual dashboard showing churn probabilities
@@ -112,9 +133,9 @@ You can configure paths to model or CSV files by editing `config.py` or `.env` (
 
 ---
 
-### 🧑‍💻 Author
+### Author
 
-Made with 💻 and ☕ by Anoop G.
+Made by Anoop G.
 
 ---
 

@@ -187,7 +187,5 @@ This prints a small JSON-like line containing the predicted class.
 
 Made with Python and perseverance by **Anoop Ganesh**
 
----
 
-```
 
